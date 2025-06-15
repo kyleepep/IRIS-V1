@@ -1,23 +1,20 @@
 workflows:
   ios-workflow:
-    name: Build IRIS-MALL
+    name: Build IRIS
     environment:
       xcode: latest
     scripts:
-      - name: Install dependencies
-        script: |
-          echo "No dependencies to install"
       - name: Build .ipa
         script: |
-          xcodebuild -project IRIS-MALL.xcodeproj \
-                     -scheme IRIS-MALL \
+          xcodebuild -project IRIS.xcodeproj \
+                     -scheme IRIS \
                      -configuration Release \
                      -destination 'generic/platform=iOS' \
-                     clean archive -archivePath $CM_BUILD_DIR/IRIS-MALL.xcarchive
+                     clean archive -archivePath $CM_BUILD_DIR/IRIS.xcarchive
 
           xcodebuild -exportArchive \
-                     -archivePath $CM_BUILD_DIR/IRIS-MALL.xcarchive \
+                     -archivePath $CM_BUILD_DIR/IRIS.xcarchive \
                      -exportOptionsPlist ExportOptions.plist \
                      -exportPath $CM_BUILD_DIR/ipa
     artifacts:
-      - build/ios/ipa/*.ipa
+      - ipa/*.ipa
